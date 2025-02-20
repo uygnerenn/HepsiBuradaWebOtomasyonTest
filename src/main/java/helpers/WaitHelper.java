@@ -45,6 +45,10 @@ public class WaitHelper {
         wait.until(ExpectedConditions.elementToBeClickable(element)).click();
         return element;
     }
+    public static  WebElement waitForClick2(WebElement element ) {
+        wait.until(ExpectedConditions.elementToBeClickable(element)).click();
+        return element;
+    }
 
     /**
      * Belirtilen öğenin DOM'da mevcut olmasını bekler.

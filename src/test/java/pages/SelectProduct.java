@@ -35,6 +35,7 @@ public class SelectProduct extends util.BasePage {
     private By cartPageCheck = By.cssSelector("h1");
     private By productPrice = By.cssSelector(".product_price_uXU6Q");
     private By cartPrice = By.xpath("//div[contains(@class, 'basket_container')]//span[contains(text(),'TL')]");
+    private By test =By.xpath("./ancestor::li[contains(@class, 'productListContent')]//a");
 
 
     public SelectProduct(WebDriver driver) {
@@ -44,21 +45,21 @@ public class SelectProduct extends util.BasePage {
 
     public void LogoCheck (){
 
-        AssertHelper.assertElementIsDisplayed(driver.findElement(HBCheck));
-        ButtonHelper.clickButton( driver.findElement(CookieAccept));
+        AssertHelper.assertElementIsDisplayed(HBCheck);
+        ButtonHelper.clickButton( CookieAccept);
         BrowserHelper.refreshPage();
         jsHelper.autoDismissPopups();
 
     }
     public void GoToTabletMenu(){
         jsHelper.autoDismissPopups();
-        ActionsHelper.hoverOverElement(driver.findElement(elektronikMenu));
-        ButtonHelper.clickButton(driver.findElement(bilgisayarTabletMenu));
+        ActionsHelper.hoverOverElement(elektronikMenu);
+        ButtonHelper.clickButton(bilgisayarTabletMenu);
         jsHelper.waitForPageLoad();
         try {
-            jsHelper.clickElementWhenVisible(driver.findElement(tabletClick));
+            jsHelper.clickElementWhenVisible(tabletClick);
         } catch (Exception e) {
-            jsHelper.clickElementWhenVisible(driver.findElement(tabletClick));
+            jsHelper.clickElementWhenVisible(tabletClick);
         }
 
 
@@ -67,14 +68,14 @@ public class SelectProduct extends util.BasePage {
     public void chooseFilter() {
 
         jsHelper.waitForPageLoad();
-        jsHelper.scrollToElement(driver.findElement(filterApple));
-        ActionsHelper.moveToElementAndClick(driver.findElement(filterApple));
-        ActionsHelper.moveToElementAndClick(driver.findElement(screenSizeFilter));
+        jsHelper.scrollToElement(filterApple);
+        ActionsHelper.moveToElementAndClick(filterApple);
+        ActionsHelper.moveToElementAndClick(screenSizeFilter);
 
 
     }
 
-    public void highgestPrice(){
+    public void highgestPrice( ){
         List<WebElement> priceElements = driver.findElements(allPrice);
 
 
@@ -98,14 +99,15 @@ public class SelectProduct extends util.BasePage {
         System.out.println(" En yüksek fiyat: " + maxPrice + " TL");
 
         if (maxPriceElement != null) {
-            WebElement productElement = maxPriceElement.findElement(By.xpath("./ancestor::li[contains(@class, 'productListContent')]//a"));
-            jsHelper.scrollToElement(productElement);
+            WebElement productElement = maxPriceElement.findElement(test);
+
+            jsHelper.scrollToElement2(productElement);
             try {
-                WaitHelper.waitForClick(productElement);
+                WaitHelper.waitForClick2(productElement);
                 System.out.println("En pahalı ürüne başarıyla tıklandı.");
             } catch (Exception e) {
                 System.out.println("Normal click başarısız, JavaScript click deneniyor...");
-                jsHelper.clickElement(productElement);
+                jsHelper.clickElement2(productElement);
                 System.out.println("JavaScript click ile en pahalı ürüne tıklandı.");
             }
 
@@ -119,7 +121,7 @@ public class SelectProduct extends util.BasePage {
            List<String> windowList = new ArrayList<>(windowHandles);
            driver.switchTo().window(windowList.get(windowList.size() - 1));
            jsHelper.waitForPageLoad();
-           ActionsHelper.moveToElementAndClick(driver.findElement(addCartBttn));
+           ActionsHelper.moveToElementAndClick(addCartBttn);
 
 
 
@@ -129,11 +131,11 @@ public class SelectProduct extends util.BasePage {
        public void goToCart(){
            wait.until(ExpectedConditions.visibilityOfElementLocated(addCartInfoTag));
            WaitHelper.visibilityOfElementLocated(addCartInfoTag);
-           jsHelper.clickElementWhenVisible(driver.findElement(goToCartBttn));
+           jsHelper.clickElementWhenVisible(goToCartBttn);
            jsHelper.waitForPageLoad();
 
            //Assert.assertTrue(driver.findElement(By.cssSelector("h1")).isDisplayed(), "❌ Sepet sayfasında değil!");
-           AssertHelper.assertElementIsDisplayed(driver.findElement(cartPageCheck));
+           AssertHelper.assertElementIsDisplayed(cartPageCheck);
 
 
        }

@@ -25,6 +25,9 @@ public class jsHelper {
         WebElement element = driver.findElement(locator);
         js.executeScript("arguments[0].click();", element);
     }
+    public static void clickElement2(WebElement element) {
+        js.executeScript("arguments[0].click();", element);
+    }
 
     // **Bir elementin görünmesini bekleyerek JavaScript ile tıklama**
     public static void clickElementWhenVisible(By locator) {
@@ -56,6 +59,9 @@ public class jsHelper {
     // **Elementin bulunduğu yere kaydırma**
     public static void scrollToElement(By locator) {
         WebElement element = driver.findElement(locator);
+        js.executeScript("arguments[0].scrollIntoView(true);", element);
+    }
+    public static void scrollToElement2(WebElement element) {
         js.executeScript("arguments[0].scrollIntoView(true);", element);
     }
 
