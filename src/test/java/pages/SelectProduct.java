@@ -83,7 +83,7 @@ public class SelectProduct extends util.BasePage {
 
 
         for (WebElement priceElement : priceElements) {
-            String priceText = priceElement.getText().replaceAll("[^0-9]", ""); // Sadece rakamları al
+            String priceText = priceElement.getText().replaceAll("[^0-9]", "");
             if (!priceText.isEmpty()) {
                 double price = Double.parseDouble(priceText);
                 System.out.println("Fiyat: " + price + " TL");
@@ -117,9 +117,7 @@ public class SelectProduct extends util.BasePage {
     }
 
        public void AddCart (){
-           Set<String> windowHandles = driver.getWindowHandles();
-           List<String> windowList = new ArrayList<>(windowHandles);
-           driver.switchTo().window(windowList.get(windowList.size() - 1));
+           BrowserHelper.switchToWindow(1);
            jsHelper.waitForPageLoad();
            ActionsHelper.moveToElementAndClick(addCartBttn);
 
@@ -133,15 +131,13 @@ public class SelectProduct extends util.BasePage {
            WaitHelper.visibilityOfElementLocated(addCartInfoTag);
            jsHelper.clickElementWhenVisible(goToCartBttn);
            jsHelper.waitForPageLoad();
-
-           //Assert.assertTrue(driver.findElement(By.cssSelector("h1")).isDisplayed(), "❌ Sepet sayfasında değil!");
            AssertHelper.assertElementIsDisplayed(cartPageCheck);
 
 
        }
 
        public void priceCheck(){
-           String cartPriceText = driver.findElement(productPrice).getText().replaceAll("[^0-9]", ""); // Sadece rakamları al
+           String cartPriceText = driver.findElement(productPrice).getText().replaceAll("[^0-9]", "");
            double cartPrice = Double.parseDouble(cartPriceText);
 
            if (maxPrice == cartPrice) {
